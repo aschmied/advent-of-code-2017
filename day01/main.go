@@ -14,9 +14,9 @@ func main() {
 }
 
 func readInput(path string) string {
-    bytes, err := ioutil.ReadFile("input")
+    bytes, err := ioutil.ReadFile(path)
     if err != nil {
-        fmt.Printf("Error reading %s: %s", path, err)
+        fmt.Printf("Error reading %s: %s\n", path, err)
         os.Exit(1)
     }
     return strings.TrimSpace(string(bytes))
