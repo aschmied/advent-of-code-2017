@@ -4,6 +4,7 @@ import (
     "fmt"
     "io/ioutil"
     "os"
+    "strings"
 )
 
 func main() {
@@ -17,5 +18,5 @@ func readInput(path string) string {
         fmt.Printf("Error reading %s: %s", path, err)
         os.Exit(1)
     }
-    return string(bytes)
+    return strings.TrimSpace(string(bytes))
 }

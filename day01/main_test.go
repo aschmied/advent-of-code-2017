@@ -13,6 +13,10 @@ func TestScanAndSum(t *testing.T) {
         {"112", 1},
         {"11233", 4},
         {"1121", 2},
+        {"1122", 3},
+        {"1111", 4},
+        {"1234", 0},
+        {"91212129", 9},
     }
     for _, c := range cases {
         actual := SumIntsThatRepeat(c.Input)
