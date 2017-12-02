@@ -1,10 +1,6 @@
 package main
 
 func SumIntsWhereOffsetCharMatches(s string, offset int) int {
-    if len(s) == 0 {
-        return 0
-    }
-
     sum := runningSum{}
     for i := 0; i < len(s); i++ {
         char0 := s[i]
