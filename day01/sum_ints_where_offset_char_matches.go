@@ -1,16 +1,16 @@
 package main
 
-func SumIntsThatRepeat(s string) int {
+func SumIntsWhereOffsetCharMatches(s string, offset int) int {
     if len(s) == 0 {
         return 0
     }
 
     sum := runningSum{}
-    for index, char0 := range s[:len(s) - 1] {
-        char1 := s[index + 1]
-        sum.addIfEqual(btoi(byte(char0)), btoi(char1))
+    for i := 0; i < len(s); i++ {
+        char0 := s[i]
+        char1 := s[(i + offset) % len(s)]
+        sum.addIfEqual(btoi(char0), btoi(char1))
     }
-    sum.addIfEqual(btoi(s[0]), btoi(s[len(s) - 1]))
 
     return sum.sum
 }

@@ -19,7 +19,7 @@ func TestScanAndSum(t *testing.T) {
         {"91212129", 9},
     }
     for _, c := range cases {
-        actual := SumIntsThatRepeat(c.Input)
+        actual := SumIntsWhereOffsetCharMatches(c.Input, 1)
         if actual != c.Expected {
             t.Errorf("Error on %s. Expected %d but got %d", c.Input, c.Expected, actual)
         }

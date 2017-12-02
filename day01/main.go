@@ -9,7 +9,8 @@ import (
 
 func main() {
     input := readInput("input")
-    fmt.Println(SumIntsThatRepeat(input))
+    fmt.Println(SumIntsWhereOffsetCharMatches(input, 1))
+    fmt.Println(SumIntsWhereOffsetCharMatches(input, len(input) / 2))
 }
 
 func readInput(path string) string {
