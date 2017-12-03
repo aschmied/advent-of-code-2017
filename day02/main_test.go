@@ -45,3 +45,41 @@ func TestCalculateChecksumForRow(t *testing.T) {
         }
     }
 }
+
+func TestSumOfMultipliers(t *testing.T) {
+    cases := []struct {
+        Input Sheet
+        Expected int
+    } {
+        {MakeSheet(MakeRow(2, 3, 5, 4, 7)), 2},
+        {MakeSheet(MakeRow(2, 3, 5, 7, 2)), 1},
+        {MakeSheet(MakeRow(2, 3, 5, 4, 7), MakeRow(2, 3, 5, 7, 2)), 3},
+    }
+
+    for _, c := range cases {
+        actual := SumOfMultipliers(c.Input)
+        if actual != c.Expected {
+            t.Error("Error on %v. Expected %v but got %v", c.Input, c.Expected, actual)
+        }
+    }
+}
+
+func TestFindPair(t *testing.T) {
+    predicate := func (v1, v2 int) bool {
+        return v1 == v2
+    }
+    cases := []struct {
+        Input Row
+        Expected int
+    } {
+        {MakeRow(1, 1), 1},
+        {MakeRow(1, 2, 3, 4, 3, 5), 3},
+    }
+
+    for _, c := range cases {
+        actual, _ := FindPair(c.Input, predicate)
+        if actual != c.Expected {
+            t.Errorf("Error on %v. Expcted %v but got %v", c.Input, c.Expected, actual)
+        }
+    }
+}

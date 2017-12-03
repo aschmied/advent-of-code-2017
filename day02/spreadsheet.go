@@ -103,3 +103,43 @@ func max(values []int) int {
     }
     return max
 }
+
+func SumOfMultipliers(sheet Sheet) int {
+    isMultiple := func (a, b int) bool {
+        if a == 0 || b == 0 {
+            return false
+        }
+        return a % b == 0 || b % a == 0
+    }
+    
+    sum := 0
+    for _, row := range sheet.Rows {
+        c0, c1 := FindPair(row, isMultiple)
+        sum += largestQuotient(c0, c1)
+    }
+    return sum
+}
+
+func largestQuotient(a, b int) int {
+    if a > b {
+        return a / b
+    }
+    return b / a
+}
+
+func FindPair(row Row, predicate func (int, int) bool) (int, int) {
+    cells := row.Cells
+
+    for i := 0; i < len(cells); i++ {
+        c0 := cells[i]
+        for j := i + 1; j < len(cells); j++ {
+            c1 := cells[j]
+            if predicate(c0, c1) {
+                return c0, c1
+            }
+        }
+    }
+    
+    log.Fatal("No pair found")
+    return 0, 0
+}

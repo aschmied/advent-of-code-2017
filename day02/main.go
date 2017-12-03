@@ -9,8 +9,12 @@ import (
 func main() {
     input := readInput("input")
     sheet := ParseSheet(input)
+    
     checksum := CalculateChecksumForSheet(sheet)
     fmt.Println(checksum)
+
+    sumOfMultipliers := SumOfMultipliers(sheet)
+    fmt.Println(sumOfMultipliers)
 }
 
 func readInput(path string) string {
