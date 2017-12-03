@@ -1,56 +1,55 @@
 package main
 
 import (
-    "errors"
+    "log"
     "strconv"
     "strings"
 )
 
 type Sheet struct {
-    Rows [][]int
+    Rows []Row
+}
+
+type Row struct {
+    Cells []int
 }
 
 func ParseSheet(text string) Sheet {
-    lines := strings.Split(strings.TrimSpace(text), "\n")
-    rows := make([][]int, len(lines))
+    trimmedText := strings.TrimSpace(text)
+    lines := strings.Split(trimmedText, "\n")
+    rows := make([]Row, len(lines))
 
     for i, line := range lines {
-        rows[i] = parseRow(line)
+        rows[i] = parseLine(line)
     }
 
     return Sheet{rows}
 }
 
-func parseRow(line string) []int {
-    tokens := strings.FieldsFunc(strings.TrimSpace(line), func (c rune) bool {
-        return c == '\t' || c == ' '
-    })
-    row := []int{}
+func parseLine(line string) Row {
+    tokens := tokenizeLine(line)
+    cells := make([]int, len(tokens))
 
-    for _, token := range tokens {
-        cell, err := parseToken(token)
-        if err != nil {
-            continue
-        }
-
-        row = append(row, cell)
+    for i, token := range tokens {
+        cells[i] = parseToken(token)
     }
 
-    return row
+    return Row{cells}
 }
 
-func parseToken(token string) (int, error) {
-    trimmed := strings.TrimSpace(token)
-    if len(trimmed) == 0 {
-        return 0, errors.New("empty token")
-    }
+func tokenizeLine(line string) []string {
+    return strings.FieldsFunc(line, func (r rune) bool {
+        return r == '\t' || r == ' '
+    })
+}
 
-    parsed, err := strconv.Atoi(trimmed)
+func parseToken(token string) int {
+    parsed, err := strconv.Atoi(token)
     if err != nil {
-        return 0, err
+        log.Fatalf("Error parsing token %v: %v\n", token, err)
     }
 
-    return parsed, nil
+    return parsed
 }
 
 func CalculateChecksumForSheet(sheet Sheet) int {
@@ -61,13 +60,13 @@ func CalculateChecksumForSheet(sheet Sheet) int {
     return checksum
 }
 
-func CalculateChecksumForRow(row []int) int {
-    if len(row) == 0 {
+func CalculateChecksumForRow(row Row) int {
+    if len(row.Cells) == 0 {
         return 0
     }
 
-    min := min(row)
-    max := max(row)
+    min := min(row.Cells)
+    max := max(row.Cells)
     return max - min
 }
 

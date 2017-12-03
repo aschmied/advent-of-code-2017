@@ -8,13 +8,13 @@ func TestParseSheet(t *testing.T) {
         Input string
         Expected Sheet
     } {
-        {"", Sheet{[][]int{{}}}},
-        {"0", Sheet{[][]int{{0}}}},
-        {"0\n", Sheet{[][]int{{0}}}},
-        {"0\n0\n", Sheet{[][]int{{0}, {0}}}},
-        {"0 0\n", Sheet{[][]int{{0, 0}}}},
-        {"-10  20 14  2 \n 1", Sheet{[][]int{{-10, 20, 14, 2}, {1}}}},
-        {"1\t2\n3\t4", Sheet{[][]int{{1, 2},{3, 4}}}},
+        {"", Sheet{[]Row{Row{[]int{}}}}},
+        {"0", Sheet{[]Row{Row{[]int{0}}}}},
+        {"0\n", Sheet{[]Row{Row{[]int{0}}}}},
+        {"0\n0\n", Sheet{[]Row{Row{[]int{0}}, Row{[]int{0}}}}},
+        {"0 0\n", Sheet{[]Row{Row{[]int{0, 0}}}}},
+        {"-10  20 14  2 \n 1", Sheet{[]Row{Row{[]int{-10, 20, 14, 2}}, Row{[]int{1}}}}},
+        {"1\t2\n3\t4", Sheet{[]Row{Row{[]int{1, 2}}, Row{[]int{3, 4}}}}},
     }
 
     for _, c := range cases {
@@ -27,15 +27,15 @@ func TestParseSheet(t *testing.T) {
 
 func TestCalculateChecksumForRow(t *testing.T) {
     cases := []struct {
-        Input []int
+        Input Row
         Expected int
     } {
-        {[]int{}, 0},
-        {[]int{55}, 0},
-        {[]int{2, 10}, 8},
-        {[]int{-2, 2}, 4},
-        {[]int{-22, -10}, 12},
-        {[]int{3, -4, 57, 22, -100, 20, 100, 3}, 200},
+        {Row{[]int{}}, 0},
+        {Row{[]int{55}}, 0},
+        {Row{[]int{2, 10}}, 8},
+        {Row{[]int{-2, 2}}, 4},
+        {Row{[]int{-22, -10}}, 12},
+        {Row{[]int{3, -4, 57, 22, -100, 20, 100, 3}}, 200},
     }
 
     for _, c := range cases {
