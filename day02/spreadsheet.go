@@ -120,13 +120,6 @@ func SumOfMultipliers(sheet Sheet) int {
     return sum
 }
 
-func largestQuotient(a, b int) int {
-    if a > b {
-        return a / b
-    }
-    return b / a
-}
-
 func findPair(row Row, predicate func (int, int) bool) (int, int) {
     cells := row.Cells
 
@@ -142,4 +135,11 @@ func findPair(row Row, predicate func (int, int) bool) (int, int) {
     
     log.Fatal("No pair found")
     return 0, 0
+}
+
+func largestQuotient(a, b int) int {
+    if a > b {
+        return a / b
+    }
+    return b / a
 }
