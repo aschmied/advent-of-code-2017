@@ -10,8 +10,22 @@ type Sheet struct {
     Rows []Row
 }
 
+func MakeSheet(rows ...Row) Sheet {
+    if len(rows) == 0 {
+        return MakeSheet(MakeRow())
+    }
+    return Sheet{rows}
+}
+
 type Row struct {
     Cells []int
+}
+
+func MakeRow(cells ...int) Row {
+    if len(cells) == 0 {
+        return Row{[]int{}}
+    }
+    return Row{cells}
 }
 
 func ParseSheet(text string) Sheet {
