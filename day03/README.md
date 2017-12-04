@@ -44,7 +44,7 @@ The 7-square ending in element 49:
     42 21 22 23 24 25 26
     43 44 45 46 47 48 49
 
-Consider the boundaries of the squares. We first reduce the indexes `mod a-1`. Next we subtract `2` and add `a-1 (mod a-1)` to shift largest values to the corners while values remain positive. Finally, we add `1` to each value. Let the values reduced in this way be `j(i) = (i - 2 + a - 1) mod (a-1) + 1 = (i + a - 3) mod (a-1) + 1`. Ignoring the degenerate `a=1` case, we illustrate this procedure for the first few cases:
+Consider the boundaries of the squares. We first reduce the indexes `mod a-1`. Next we subtract `2` and add `a-1 (mod a-1)` to shift largest values to the corners while ensuring values remain positive. Finally, we add `1` to each value. Let the values reduced in this way be `j(i) = (i - 2 + a - 1) mod (a-1) + 1 = (i + a - 3) mod (a-1) + 1`. Ignoring the degenerate `a=1` case, we illustrate this procedure for the first few cases:
 
     5 4 3         1 0 1                1 0 1      2 1 2
     6   2  mod 2  0   0  (-2+2) mod 2  0   0  +1  1   1
@@ -72,7 +72,7 @@ Putting this together we obtain the following algorithm:
 
 Given a natural number `i`.
 
-1. Find the smallest odd `a` such that `a^2` >= `i`
+1. Find the smallest odd `a` such that `a^2 >= i`
 1. Calculate `j(i) = (i + a - 3) mod (a-1) + 1`
     1. If `j(i) >= floor(a/2)` then `f(i) = j(i)`
     1. If `j(i) < floor(a/2)` then `f(i) = j(a^2) - j(i)`
