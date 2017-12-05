@@ -84,3 +84,7 @@ Our input is `361527`. The smallest odd `a` such that `a^2 >= 361527` is `603`. 
 ## Conclusion
 
 Writing a program to simulate the problem would have been faster than working through the above analysis. On the other hand, the above algorithm is O(1) while simulating would have been O(i).
+
+## Other Notes
+
+This analysis could be simplified using the `y(x) = |x mod 2 - 1|` definition of a [triangle wave](https://en.wikipedia.org/wiki/Triangle_wave). Also a better way to think of this would be mapping `i` to coordinates in the grid. Then we could also consider going the other direction: mapping a pair of grid coordinates to an `i`.
