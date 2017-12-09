@@ -1,38 +1,62 @@
 package grid_memory
 
 type gridWalker struct {
-    current Coord
+    location Coord
     directions []Coord
-    nextDirectionIndex int
-    nextDistance int
+    currentDirectionIndex int
+    currentSideLength int
+    locationOfNextTurn Coord
 }
 
 func newGridWalker() gridWalker {
- current := Coord{0, 0}
+    location := Coord{0, 0}
     directions := []Coord {
         {0, 1},
         {-1, 0},
         {0, -1},
         {1, 0},
     }
-    nextDirectionIndex := 0
-    nextDistance := 1
-    return gridWalker{current, directions, nextDirectionIndex, nextDistance}   
+    currentDirectionIndex := 0
+    currentSideLength := 1
+    locationOfNextTurn := Coord{0, currentSideLength}
+    return gridWalker{
+        location,
+        directions,
+        currentDirectionIndex,
+        currentSideLength,
+        locationOfNextTurn,
+    }
 }
 
-func (self gridWalker) currentCoord() Coord {
-    return self.current
+func (self gridWalker) CurrentCoord() Coord {
+    return self.location
 }
 
-func (self *gridWalker) nextCoord() Coord {
-    nextDirection := self.directions[self.nextDirectionIndex]
-    offset := nextDirection.Multiply(self.nextDistance)
-    self.current = self.current.Add(offset)
+func (self *gridWalker) Step() Coord {
+    previousLocation := self.step()
+    if self.location.Equals(self.locationOfNextTurn) {
+        self.turn()
+        self.calculateLocationOfNextTurn()
+    }
+    return previousLocation
+}
 
-    self.nextDirectionIndex = (self.nextDirectionIndex + 1) % len(self.directions)
-    if self.nextDirectionIndex % 2 == 0 {
-        self.nextDistance += 1
+func (self *gridWalker) step() Coord {
+    currentLocation := self.location
+    direction := self.directions[self.currentDirectionIndex]
+    self.location = currentLocation.Add(direction)
+    return currentLocation
+}
+
+func (self *gridWalker) turn() {
+    self.currentDirectionIndex = (self.currentDirectionIndex + 1) % 4
+    if self.currentDirectionIndex % 2 == 0 {
+        self.currentSideLength += 1
     }
 
-    return self.current
+}
+
+func (self *gridWalker) calculateLocationOfNextTurn() {
+    direction := self.directions[self.currentDirectionIndex]
+    self.locationOfNextTurn = self.location.Add(direction.Multiply(self.currentSideLength))
 }

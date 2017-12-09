@@ -12,3 +12,7 @@ func (self Coord) Multiply(scalar int) Coord {
 func (self Coord) Add(other Coord) Coord {
     return Coord{self.Row + other.Row, self.Col + other.Col}
 }
+
+func (self Coord) Equals(other Coord) bool {
+    return self.Row == other.Row && self.Col == other.Col
+}

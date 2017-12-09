@@ -18,9 +18,29 @@ func TestMultiply(t *testing.T) {
     assertCoordsEqual(t, c2, Coord{2, 4})
 }
 
+func TestEquals(t *testing.T) {
+    assertTrue(t, Coord{1, 2}.Equals(Coord{1, 2}))
+    assertFalse(t, Coord{1, 2}.Equals(Coord{3, 2}))
+    assertFalse(t, Coord{1, 2}.Equals(Coord{1, 3}))
+}
+
 func assertCoordsEqual(t *testing.T, actual Coord, expected Coord) {
     if actual.Row != expected.Row || actual.Col != expected.Col {
         t.Errorf("Expected (%v, %v) but got (%v, %v)",
             expected.Row, expected.Col, actual.Row, actual.Col)
+    }
+}
+
+func assertTrue(t *testing.T, actual bool) {
+    assertBool(t, actual, true)
+}
+
+func assertFalse(t *testing.T, actual bool) {
+    assertBool(t, actual, false)
+}
+
+func assertBool(t *testing.T, actual bool, expected bool) {
+    if actual != expected {
+        t.Errorf("Expected %v but got %v", expected, actual)
     }
 }
