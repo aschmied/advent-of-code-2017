@@ -11,7 +11,7 @@ func main() {
     numberValidPassphrases := 0
     for _, line := range lines {
         passphrase := NewPassphrase(line)
-        if passphrase.Valid() {
+        if !passphrase.HasDuplicateWords() {
             numberValidPassphrases += 1
         }
     }

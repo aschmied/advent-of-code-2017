@@ -16,13 +16,13 @@ func (self passphrase) Words() []string {
     return ret
 }
 
-func (self passphrase) Valid() bool {
+func (self passphrase) HasDuplicateWords() bool {
     usedWords := NewStringSet()
     for _, word := range self.words {
         if usedWords.Contains(word) {
-            return false
+            return true
         }
         usedWords.Add(word)
     }
-    return true
+    return false
 }

@@ -26,25 +26,25 @@ func assertWords(t *testing.T, passphrase passphrase, expected []string) {
     }
 }
 
-func TestValid(t *testing.T) {
-    assertValid(t, NewPassphrase(""))
-    assertValid(t, NewPassphrase("the"))
-    assertValid(t, NewPassphrase("the quick brown fox"))
-    assertInalid(t, NewPassphrase("the quick brown fox jumps over the"))
-    assertInalid(t, NewPassphrase("the the"))
+func TestHasDuplicateWords(t *testing.T) {
+    assertHasNoDuplicateWords(t, NewPassphrase(""))
+    assertHasNoDuplicateWords(t, NewPassphrase("the"))
+    assertHasNoDuplicateWords(t, NewPassphrase("the quick brown fox"))
+    assertHasDuplicateWords(t, NewPassphrase("the quick brown fox jumps over the"))
+    assertHasDuplicateWords(t, NewPassphrase("the the"))
 }
 
-func assertValid(t *testing.T, passphrase passphrase) {
-    assertValidValue(t, passphrase, true)
+func assertHasNoDuplicateWords(t *testing.T, passphrase passphrase) {
+    assertHasDuplicateWordsValue(t, passphrase, false)
 }
 
-func assertInalid(t *testing.T, passphrase passphrase) {
-    assertValidValue(t, passphrase, false)
+func assertHasDuplicateWords(t *testing.T, passphrase passphrase) {
+    assertHasDuplicateWordsValue(t, passphrase, true)
 }
 
-func assertValidValue(t *testing.T, passphrase passphrase, expected bool) {
-    actual := passphrase.Valid()
+func assertHasDuplicateWordsValue(t *testing.T, passphrase passphrase, expected bool) {
+    actual := passphrase.HasDuplicateWords()
     if actual != expected {
-        t.Errorf("Incorrect value for Valid(). Expected %v but got %v", expected, actual)
+        t.Errorf("Incorrect value for HasDuplicateWords(). Expected %v but got %v", expected, actual)
     }
 }
