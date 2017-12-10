@@ -48,3 +48,29 @@ func assertHasDuplicateWordsValue(t *testing.T, passphrase passphrase, expected 
         t.Errorf("Incorrect value for HasDuplicateWords(). Expected %v but got %v", expected, actual)
     }
 }
+
+func TestHasAnnagrams(t *testing.T) {
+    assertHasNoAnnagrams(t, NewPassphrase(""))
+    assertHasNoAnnagrams(t, NewPassphrase("the"))
+    assertHasNoAnnagrams(t, NewPassphrase("the quick brown fox"))
+    assertHasAnnagrams(t, NewPassphrase("the quick brown ckuiq fox"))
+}
+
+func TestHasAnnagramsSubsets(t *testing.T) {
+    assertHasNoAnnagrams(t, NewPassphrase("quick quicker"))
+}
+
+func assertHasAnnagrams(t *testing.T, passphrase passphrase) {
+    assertHasAnnagramsValue(t, passphrase, true)
+}
+
+func assertHasNoAnnagrams(t *testing.T, passphrase passphrase) {
+    assertHasAnnagramsValue(t, passphrase, false)
+}
+
+func assertHasAnnagramsValue(t *testing.T, passphrase passphrase, expected bool) {
+    actual := passphrase.HasAnnagrams()
+    if actual != expected {
+        t.Errorf("Incorrect value for HasAnnagrams(). Expected %v but got %v", expected, actual)
+    }
+}
