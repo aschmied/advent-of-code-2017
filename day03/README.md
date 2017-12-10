@@ -88,3 +88,7 @@ Writing a program to simulate the problem would have been faster than working th
 ## Other Notes
 
 This analysis could be simplified using the `y(x) = |x mod 2 - 1|` definition of a [triangle wave](https://en.wikipedia.org/wiki/Triangle_wave). Also a better way to think of this would be mapping `i` to coordinates in the grid. Then we could also consider going the other direction: mapping a pair of grid coordinates to an `i`.
+
+## Epilogue
+
+After completing this analysis I wrote the code to simulate the problem: I implemented the grid memory. It was quite difficult to get the stepping right. I think the best solution to this problem would have been to figure out a mapping between row/col (Euclidean) coordinates and ring number/steps around the ring (polar) coordinates.
