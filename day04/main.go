@@ -8,14 +8,19 @@ import (
 
 func main() {
     lines := readInput("input")
-    numberValidPassphrases := 0
+    numberPassphrasesWithoutDuplicates := 0
+    numberPassphrasesWithoutAnnagrams := 0
     for _, line := range lines {
         passphrase := NewPassphrase(line)
         if !passphrase.HasDuplicateWords() {
-            numberValidPassphrases += 1
+            numberPassphrasesWithoutDuplicates += 1
+        }
+        if !passphrase.HasAnnagrams() {
+            numberPassphrasesWithoutAnnagrams += 1
         }
     }
-    fmt.Println(numberValidPassphrases)
+    fmt.Println(numberPassphrasesWithoutDuplicates)
+    fmt.Println(numberPassphrasesWithoutAnnagrams)
 }
 
 func readInput(filename string) []string {
