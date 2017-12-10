@@ -53,6 +53,25 @@ func (self gridMemory) Coord() Coord {
     return self.walker.CurrentCoord()
 }
 
+func (self gridMemory) Get(coord Coord) int {
+    arrayCoord := self.arrayCoord(coord)
+    if arrayCoord.Row >= len(self.grid) || arrayCoord.Col >= len(self.grid[0]) {
+        return 0
+    }
+    return self.grid[arrayCoord.Row][arrayCoord.Col]
+}
+
+func (self gridMemory) SumInPatch(coord Coord) int {
+    sum := 0
+    for i := -1; i < 2; i++ {
+        for j := -1; j < 2; j++ {
+            patchOffset := Coord{i, j}
+            sum += self.Get(coord.Add(patchOffset))
+        }
+    }
+    return sum
+}
+
 func (self gridMemory) arrayCoord(coord Coord) Coord {
     arrayRow := self.origin.Row + coord.Row
     arrayCol := self.origin.Col + coord.Col
