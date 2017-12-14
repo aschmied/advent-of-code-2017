@@ -28,7 +28,9 @@ func NewUpDownJumpInterpreter(program Program) jumpInterpreter {
         }
         return instruction - 1
     }
-    return jumpInterpreter{program, 0, mutator}
+    programCopy := make(Program, len(program))
+    copy(programCopy, program)
+    return jumpInterpreter{programCopy, 0, mutator}
 }
 
 func (self jumpInterpreter) Program() Program {
