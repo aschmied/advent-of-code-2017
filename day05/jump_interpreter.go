@@ -16,6 +16,18 @@ func NewJumpInterpreter(program Program) jumpInterpreter {
     mutator := func (instruction Instruction) Instruction {
         return instruction + 1
     }
+    programCopy := make(Program, len(program))
+    copy(programCopy, program)
+    return jumpInterpreter{programCopy, 0, mutator}
+}
+
+func NewUpDownJumpInterpreter(program Program) jumpInterpreter {
+    mutator := func (instruction Instruction) Instruction {
+        if instruction < 3 {
+            return instruction + 1
+        }
+        return instruction - 1
+    }
     return jumpInterpreter{program, 0, mutator}
 }
 

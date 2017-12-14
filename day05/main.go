@@ -9,9 +9,15 @@ import (
 
 func main() {
     program := readProgram("input")
+
     interpreter := NewJumpInterpreter(program)
     interpreter.Execute()
+
+    upDownInterpreter := NewUpDownJumpInterpreter(program)
+    upDownInterpreter.Execute()
+
     fmt.Println(interpreter.Cycles())
+    fmt.Println(upDownInterpreter.Cycles())
 }
 
 func readProgram(filename string) Program {

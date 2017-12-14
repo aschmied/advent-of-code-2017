@@ -31,6 +31,20 @@ func TestComplexProgram(t *testing.T) {
     assertProgram(t, interpreter.Program(), Program{4, 0, -1, -998})
 }
 
+func TestUpDownJumpInterpreter(t *testing.T) {
+    interpreter := NewUpDownJumpInterpreter(Program{1, 4})
+    interpreter.Execute()
+    assertInt(t, interpreter.Cycles(), 2)
+    assertProgram(t, interpreter.Program(), Program{2, 3})
+}
+
+func TestUpDownJumpInterpreterComplexProgram(t *testing.T) {
+    interpreter := NewUpDownJumpInterpreter(Program{0, 3, 0, 1, -3})
+    interpreter.Execute()
+    assertInt(t, interpreter.Cycles(), 10)
+    assertProgram(t, interpreter.Program(), Program{2, 3, 2, 3, -1})
+}
+
 func assertInt(t *testing.T, actual int, expected int) {
     if expected != actual {
         t.Errorf("Expected %d but got %d", expected, actual)
