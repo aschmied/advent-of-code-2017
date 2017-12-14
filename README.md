@@ -17,11 +17,11 @@ Then change to a solution directory, install, and run:
     cd advent-of-code-2017/day01
     go install && $(go env GOPATH)/bin/day01
 
-The input file paths are hardcoded to the working directory in the solutions, so you need to execute them in the source directory.
+Input file paths are hardcoded, so you need to run the solutions in their directories e.g. to run `day01` you need to be in "advent-of-code-2017/day01"
 
 ### With `go run`
 
-If you don't have a go workspace then you can use `go run`. The drawback is that you need to explicitly list all source files:
+If you don't have a go workspace then you can use `go run`. The drawback is that you need to list all source files as arguments:
 
     cd day01
     go run main.go sum_ints_where_offset_char_matches.go
