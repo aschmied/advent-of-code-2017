@@ -26,14 +26,6 @@ func TestExecuteJumpForward(t *testing.T) {
 
 func TestComplexProgram(t *testing.T) {
     interpreter := NewJumpInterpreter(Program{0, -1, -2, -999})
-    // 0 -1 -2 -999
-    // 1 -1 -2 -999
-    // 2 -1 -2 -999
-    // 2  0 -2 -999
-    // 3  0 -2 -999
-    // 3  0 -1 -999
-    // 4  0 -1 -999
-    // 4  0 -1 -998
     interpreter.Execute()
     assertInt(t, interpreter.Cycles(), 7)
     assertProgram(t, interpreter.Program(), Program{4, 0, -1, -998})
